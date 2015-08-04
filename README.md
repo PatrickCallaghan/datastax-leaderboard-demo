@@ -1,7 +1,7 @@
 Leaderboard Demo
 ====================
 
-This demo shows how to use DataStax Enterprise to get the highest scores on a leaderboard of millions of users. This demo assumes the same user cannot simultaneously play the same game.  
+This demo shows how to use DataStax Enterprise to get the highest scores on a leaderboard of millions of users. This demo assumes the same user cannot simultaneously play the same game.  This is based on a imaginery game called 'age of darkness'. There is one overall leaderboard and then separate leaderboards for 100,000 thousand stages. This may represent different levels, settings or difficulty settings. The requirement is to provide an overall total leaderboard which just appends points won to an overall score and a stage leaderboard to show the best at each level.
 
 ## Running the demo 
 
@@ -41,9 +41,14 @@ Using the command line tool, cqlsh. To use the limit properly, turn off the pagi
 	
 	paging off
 	
-Then we can run the following to get the top ten scores.  
+Then we can run the following to get the top ten overall scores.  
 	
 	select user,total from age_of_darkness_leaderboard where solr_query='{"q": "*:*", "sort":"total desc"}' limit 10 ;
+	
+To look at a specific stage, we can use
+
+	select user,high_score from stage_leaderboard where solr_query='{"q": "stage:1321", "sort":"high_score desc"}' limit 10 ;
+
 
 	
 	
