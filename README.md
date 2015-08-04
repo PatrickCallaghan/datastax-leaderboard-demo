@@ -22,7 +22,7 @@ The schema can be found in src/main/resources/cql/
 To specify contact points use the contactPoints command line parameter e.g. '-DcontactPoints=192.168.25.100,192.168.25.101'
 The contact points can take mulitple points in the IP,IP,IP (no spaces).
 
-To create the a single node cluster with replication factor of 1 for standard localhost setup, run the following
+To create the a keyspace with replication factor of 3 for a SearchAnalytics DC, run the following
 
     mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaSetup"
 
