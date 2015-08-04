@@ -15,7 +15,7 @@ CREATE TABLE if not exists stage_leaderboard (
 	user text,
 	date timestamp,	
 	high_score double,
-	PRIMARY KEY (stage, user)
+	PRIMARY KEY ((stage, user))
 ) WITH compaction= { 'class': 'LeveledCompactionStrategy' };
 
 

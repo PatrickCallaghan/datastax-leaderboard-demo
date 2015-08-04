@@ -38,7 +38,7 @@ In another window, create the Solr cores for our tables. Run
 	
 	dsetool create_core datastax_leaderboard_demo.stage_leaderboard generateResources=true reindex=true
 	
-Using the command line tool, cqlsh. To use the limit properly, turn off the pagination using
+We will use the command line tool, cqlsh. To use the limit properly with Solr Search queries, turn off the pagination using
 	
 	paging off
 	
@@ -50,6 +50,9 @@ To look at a specific stage, we can use
 
 	select user,high_score from stage_leaderboard where solr_query='{"q": "stage:1321", "sort":"high_score desc"}' limit 10 ;
 
+Or to look at the high_scores over all stages, we can use 
 
+	select stage,user,high_score from stage_leaderboard where solr_query='{"q": "*:*", "sort":"high_score desc"}' limit 10 ;
 	
+
 	
