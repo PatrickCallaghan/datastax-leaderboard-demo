@@ -44,16 +44,21 @@ public class Main {
 			
 			if (counter%1000 == 0){
 				sleep(100);
+				logger.info("Processed : " + counter);
 			}
 		}
 	}
 	
 	private Score createRandomScore(long noOfUsers) {
 		
-		double score = rand.nextGaussian() * 1000;
-		String userId = new Double(Math.random()*noOfUsers).intValue() + "";
+		double score = rand.nextGaussian() * 100;
 		
-		return new Score (userId, new Date(), score);
+		score = score < 0 ? score*-1 : score; 
+		
+		String userId = new Double(Math.random()*noOfUsers).intValue() + "";
+		String stage = new Double(Math.random()*100000).intValue() + "";
+		
+		return new Score (stage, userId, new Date(), score);
 	}
 
 	private void sleep(int milliseconds) {

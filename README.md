@@ -43,7 +43,7 @@ Using the command line tool, cqlsh. To use the limit properly, turn off the pagi
 	
 Then we can run the following to get the top ten scores.  
 	
-	select user,high_score from age_of_darkness_leaderboard where solr_query='{"q": "*:*", "sort":"high_score desc"}' limit 10 ;
+	select user,total from age_of_darkness_leaderboard where solr_query='{"q": "*:*", "sort":"total desc"}' limit 10 ;
 
 	
 	
