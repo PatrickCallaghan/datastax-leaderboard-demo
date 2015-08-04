@@ -32,11 +32,12 @@ To start inserting run
     
 The default example uses 1Million users but these can be changed by adding the argument 'noOfUsers'. To change the demo to use 100000 users add the following '-DnoOfUsers=100000' 
 
-In another window, create the Solr core for our table. Run 
+In another window, create the Solr cores for our tables. Run 
 
-	bin/dsetool create_core datastax_leaderboard_demo.age_of_darkness_leaderboard generateResources=true reindex=true
-
-
+	dsetool create_core datastax_leaderboard_demo.age_of_darkness_leaderboard generateResources=true reindex=true
+	
+	dsetool create_core datastax_leaderboard_demo.stage_leaderboard generateResources=true reindex=true
+	
 Using the command line tool, cqlsh. To use the limit properly, turn off the pagination using
 	
 	paging off
