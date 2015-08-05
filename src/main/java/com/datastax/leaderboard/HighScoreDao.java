@@ -101,19 +101,17 @@ public class HighScoreDao {
 	public void readTotals(){
 		logger.info("In Totals");
 		SimpleStatement stmt = new SimpleStatement(TOTAL_READ);
-		logger.info(stmt.getQueryString());
 		stmt.setFetchSize(10);
 		ResultSet rs = session.execute(stmt);
-		logger.info("Getting results");
 		Iterator<Row> iter = rs.iterator();
 		
-		logger.info("Totals");
+		logger.info("Overall Leaderboard");
 		
 		while (iter.hasNext()){
 			Row row = iter.next();
 			logger.info(row.getString("user") + "-" + row.getDouble("total"));			
 		}
-		logger.info("Finished");
+		
 	}
 	
 	public void readStages(){
@@ -131,7 +129,7 @@ public class HighScoreDao {
 			Row row = iter.next();
 			logger.info(row.getString("user") + "-" + row.getDouble("high_score"));
 		}		
-		logger.info("Finished");
+		
 	}
 	
 	
