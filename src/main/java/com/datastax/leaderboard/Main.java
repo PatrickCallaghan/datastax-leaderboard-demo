@@ -42,7 +42,9 @@ public class Main {
 			dao.insertScore(createRandomScore(noOfUsers));
 			counter ++;
 			
-			if (counter%1000 == 0){
+			if (counter%10000 == 0){
+				dao.readStages();
+				dao.readTotals();
 				sleep(100);
 				logger.info("Processed : " + counter);
 			}
