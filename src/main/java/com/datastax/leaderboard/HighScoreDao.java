@@ -93,9 +93,9 @@ public class HighScoreDao {
 		if (rs.isExhausted()){
 			return 0;
 		}else{
-			rs.one().getDouble("total");
+			double total = rs.one().getDouble("total");
+			return total;
 		}
-		return 0;
 	}
 	
 	public void readTotals(){
@@ -128,9 +128,6 @@ public class HighScoreDao {
 		while (iter.hasNext()){
 			Row row = iter.next();
 			logger.info(row.getString("user") + "-" + row.getDouble("high_score"));
-		}		
-		
-	}
-	
-	
+		}			
+	}	
 }

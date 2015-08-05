@@ -38,11 +38,7 @@ In another window, create the Solr cores for our tables. Run
 	
 	dsetool create_core datastax_leaderboard_demo.stage_leaderboard generateResources=true reindex=true
 	
-We will use the command line tool, cqlsh. To use the limit properly with Solr Search queries, turn off the pagination using
-	
-	paging off
-	
-Then we can run the following to get the top ten overall scores.  
+We will use the command line tool, cqlsh. Then we can run the following to get the top ten overall scores.  
 	
 	select user,total from age_of_darkness_leaderboard where solr_query='{"q": "*:*", "sort":"total desc"}' limit 10 ;
 	

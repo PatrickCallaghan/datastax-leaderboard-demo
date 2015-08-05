@@ -7,7 +7,7 @@ CREATE TABLE if not exists age_of_darkness_leaderboard (
 	date timestamp,	
 	total double,
 	PRIMARY KEY (user)
-) WITH compaction= { 'class': 'LeveledCompactionStrategy' };
+) WITH compaction= { 'class': 'LeveledCompactionStrategy', 'tombstone_threshold':'0.1' };
 
 
 CREATE TABLE if not exists stage_leaderboard ( 
@@ -16,8 +16,9 @@ CREATE TABLE if not exists stage_leaderboard (
 	date timestamp,	
 	high_score double,
 	PRIMARY KEY ((stage, user))
-) WITH compaction= { 'class': 'LeveledCompactionStrategy' };
+) WITH compaction= { 'class': 'LeveledCompactionStrategy', 'tombstone_threshold':'0.1'  };
 
 
 truncate age_of_darkness_leaderboard;
 truncate stage_leaderboard;
+	
