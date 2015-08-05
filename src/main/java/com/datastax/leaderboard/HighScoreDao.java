@@ -51,13 +51,13 @@ public class HighScoreDao {
 		double previousTotal= getTotalScore(score.getUserId());
 		
 		BoundStatement bound = new BoundStatement(this.insertTotalStmt);
-		session.execute(bound.bind(score.getUserId(), score.getTime(), previousTotal + score.getScore()));	
+		session.executeAsync(bound.bind(score.getUserId(), score.getTime(), previousTotal + score.getScore()));	
 		
 		double previousStageScore = getPreviousStageScore(score.getUserId(), score.getStage());
 		
 		if (score.getScore() > previousStageScore){
 			bound = new BoundStatement(this.insertStageLeaderBoardStmt);
-			session.execute(bound.bind(score.getStage(), score.getUserId(), score.getTime(), score.getScore()));
+			session.executeAsync(bound.bind(score.getStage(), score.getUserId(), score.getTime(), score.getScore()));
 		}
 
 	}

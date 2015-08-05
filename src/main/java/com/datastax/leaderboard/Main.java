@@ -56,8 +56,16 @@ public class Main {
 		score = score < 0 ? score*-1 : score; 
 		
 		String userId = new Double(Math.random()*noOfUsers).intValue() + "";
-		String stage = new Double(Math.random()*100000).intValue() + "";
+
+		//Create a hotspot
+		double random = Math.random()*20;
+		String stage;
 		
+		if (random < 19){
+			stage = new Double(Math.random()*1000000).intValue() + "";
+		} else {
+			stage = new Double(Math.random()*100).intValue() + "";
+		}
 		return new Score (stage, userId, new Date(), score);
 	}
 
