@@ -109,12 +109,9 @@ public class HighScoreDao {
 		
 		logger.info("Totals");
 		
-		int counter = 0;
 		while (iter.hasNext()){
 			Row row = iter.next();
-			logger.info(row.getString("user") + "-" + row.getDouble("total"));
-			
-			if (counter++ ==10) break;
+			logger.info(row.getString("user") + "-" + row.getDouble("total"));			
 		}
 		logger.info("Finished");
 	}
