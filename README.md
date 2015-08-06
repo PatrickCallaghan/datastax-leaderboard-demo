@@ -32,7 +32,9 @@ To start inserting run
     
 The default example uses 1Million users but these can be changed by adding the argument 'noOfUsers'. To change the demo to use 100000 users add the following '-DnoOfUsers=100000' 
 
-In another window, create the Solr cores for our tables. Run 
+In another window, create the Solr cores for our tables. Follow the steps in the Commands.txt file in the Solr directory in src/main/resources. This will give you the most optimal version. 
+
+For a quick version you can use the dsetool 
 
 	dsetool create_core datastax_leaderboard_demo.age_of_darkness_leaderboard generateResources=true reindex=true
 	

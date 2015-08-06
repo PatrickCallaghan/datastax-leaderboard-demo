@@ -1,3 +1,6 @@
+//For each node - do the follow steps. 
+
+
 //Add the SolrConfig
 curl http://localhost:8983/solr/resource/datastax_leaderboard_demo.stage_leaderboard/solrconfig.xml --data-binary @solrconfig.xml -H 'Content-type:text/xml; charset=utf-8'
 curl http://localhost:8983/solr/resource/datastax_leaderboard_demo.age_of_darkenss_leaderboard/solrconfig.xml --data-binary @solrconfig.xml -H 'Content-type:text/xml; charset=utf-8'
