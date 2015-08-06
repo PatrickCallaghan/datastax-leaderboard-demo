@@ -1,21 +1,8 @@
 //For each node - do the follow steps. 
+Go the the install directory/src/main/resources/solr
 
-
-//Add the SolrConfig
-curl http://localhost:8983/solr/resource/datastax_leaderboard_demo.stage_leaderboard/solrconfig.xml --data-binary @solrconfig.xml -H 'Content-type:text/xml; charset=utf-8'
-curl http://localhost:8983/solr/resource/datastax_leaderboard_demo.age_of_darkenss_leaderboard/solrconfig.xml --data-binary @solrconfig.xml -H 'Content-type:text/xml; charset=utf-8'
-
-//Add the Schema
-curl http://localhost:8983/solr/resource/datastax_leaderboard_demo.stage_leaderboard/schema.xml --data-binary @stage_leaderboard_schema.xml -H 'Content-type:text/xml; charset=utf-8'
-curl http://localhost:8983/solr/resource/datastax_leaderboard_demo.age_of_darkness_leaderboard/schema.xml --data-binary @age_of_darkness_schema.xml -H 'Content-type:text/xml; charset=utf-8'
-
-//Create the Solr Core.
-curl "http://localhost:8983/solr/admin/cores?action=CREATE&name=datastax_leaderboard_demo.stage_leaderboard"
-curl "http://localhost:8983/solr/admin/cores?action=CREATE&name=datastax_leaderboard_demo.age_of_darkness_leaderboard"
+dsetool create_core datastax_leaderboard_demo.stage_leaderboard solrconfig=solrconfig.xml schema=stage_leaderboard_schema.xml
+dsetool create_core datastax_leaderboard_demo.age_of_darkness_leaderboard solrconfig=solrconfig.xml schema=age_of_darkness_schema.xml
 
 //Connect to the Solr web app.
 http://localhost:8983/solr/
-
-//Reload the Solr Core if needed
-curl "http://localhost:8983/solr/admin/cores?action=RELOAD&name=datastax_leaderboard_demo.stage_leaderboard"
-curl "http://localhost:8983/solr/admin/cores?action=RELOAD&name=datastax_leaderboard_demo.age_of_darkness_leaderboard"
