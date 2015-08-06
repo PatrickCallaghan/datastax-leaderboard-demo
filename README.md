@@ -5,7 +5,7 @@ This demo shows how to use DataStax Enterprise to get the highest scores on a le
 
 ## Running the demo 
 
-You will need a java runtime along with maven 3 to run this demo. Start DSE 4.7.x in SearchAnalytics mode. This can be done using 
+You will need a java runtime along with maven 3 to run this demo. Start DSE version 4.7.1 or greater in SearchAnalytics mode. This can be done using 
 
 	'dse cassandra -s -k'
 	
