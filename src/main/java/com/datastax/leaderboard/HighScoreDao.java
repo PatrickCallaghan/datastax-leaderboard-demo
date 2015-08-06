@@ -99,7 +99,6 @@ public class HighScoreDao {
 	}
 	
 	public void readTotals(){
-		logger.info("In Totals");
 		SimpleStatement stmt = new SimpleStatement(TOTAL_READ);
 		stmt.setFetchSize(10);
 		ResultSet rs = session.execute(stmt);

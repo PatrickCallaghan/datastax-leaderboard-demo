@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<schema name="autoSolrSchema" version="1.5">
+<types>
+<fieldType class="org.apache.solr.schema.StrField" name="StrField"/>
+<fieldType class="org.apache.solr.schema.TrieDoubleField" name="TrieDoubleField"/>
+<fieldType class="org.apache.solr.schema.TrieDateField" name="TrieDateField"/>
+</types>
+<fields>
+<field indexed="true" multiValued="false" name="user" stored="true" type="StrField"/>
+<field indexed="false" multiValued="false" name="high_score" stored="true" type="TrieDoubleField" docValues="true"/>
+<field indexed="true" multiValued="false" name="stage" stored="true" type="StrField"/>
+<field indexed="true" multiValued="false" name="date" stored="true" type="TrieDateField"/>
+</fields>
+<uniqueKey>(stage,user)</uniqueKey>
+</schema>
