@@ -34,7 +34,7 @@ public class HighScoreDao {
 	private static final String INSERT_INTO_STAGE_LEADERBOARD = "Insert into " + tableNameLeadboard + " (stage, user,date,high_score) values (?, ?,?,?);";
 	private static final String SELECT_FROM_STAGE_LEADERBOARD= "Select high_score from " + tableNameLeadboard + " where user = ? and stage = ?";
 
-	private static final String INSERT_INTO_STAGE_BUCKET_LEADERBOARD = "Insert into " + tableNameBucketLeadboard + " (stage, bucket, user,date,high_score) values (?, ?,?,?);";
+	private static final String INSERT_INTO_STAGE_BUCKET_LEADERBOARD = "Insert into " + tableNameBucketLeadboard + " (stage, bucket, user,date,high_score) values (?,?, ?,?,?);";
 	private static final String SELECT_FROM_STAGE_BUCKET_LEADERBOARD= "Select high_score from " + tableNameBucketLeadboard + " where stage = ? and bucket = ?";
 
 	private static final String TOTAL_READ = "select user,total from " + tableNameAgeOfDarkness + "  where solr_query='{\"q\": \"*:*\", \"sort\":\"total desc\"}' limit 10;";
