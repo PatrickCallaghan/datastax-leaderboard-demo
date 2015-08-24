@@ -1,6 +1,7 @@
 package com.datastax.leaderboard;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -25,6 +26,7 @@ public class HighScoreDao {
 	private static String keyspaceName = "datastax_leaderboard_demo";
 	private static String tableNameAgeOfDarkness = keyspaceName + ".age_of_darkness_leaderboard";
 	private static String tableNameLeadboard = keyspaceName + ".stage_leaderboard";
+	private static String tableNameBucketLeadboard = keyspaceName + ".stage_bucket_leaderboard";
 
 	private static final String INSERT_INTO_TOTAL = "Insert into " + tableNameAgeOfDarkness + " (user,date,total) values (?, ?,?);";
 	private static final String SELECT_FROM_TOTAL= "Select total from " + tableNameAgeOfDarkness + " where user = ? ";
@@ -32,12 +34,17 @@ public class HighScoreDao {
 	private static final String INSERT_INTO_STAGE_LEADERBOARD = "Insert into " + tableNameLeadboard + " (stage, user,date,high_score) values (?, ?,?,?);";
 	private static final String SELECT_FROM_STAGE_LEADERBOARD= "Select high_score from " + tableNameLeadboard + " where user = ? and stage = ?";
 
+	private static final String INSERT_INTO_STAGE_BUCKET_LEADERBOARD = "Insert into " + tableNameBucketLeadboard + " (stage, bucket, user,date,high_score) values (?, ?,?,?);";
+	private static final String SELECT_FROM_STAGE_BUCKET_LEADERBOARD= "Select high_score from " + tableNameBucketLeadboard + " where stage = ? and bucket = ?";
+
 	private static final String TOTAL_READ = "select user,total from " + tableNameAgeOfDarkness + "  where solr_query='{\"q\": \"*:*\", \"sort\":\"total desc\"}' limit 10;";
 	
 	private PreparedStatement insertTotalStmt;
 	private PreparedStatement selectTotalStmt;
 	private PreparedStatement insertStageLeaderBoardStmt;
 	private PreparedStatement selectStageLeaderBoardStmt;
+	private PreparedStatement insertStageBucketLeaderBoardStmt;
+	private PreparedStatement selectStageBucketLeaderBoardStmt;
 		
 	private PreparedStatement totalReadlStmt;
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.zzz");
@@ -52,25 +59,32 @@ public class HighScoreDao {
 		this.selectTotalStmt = session.prepare(SELECT_FROM_TOTAL);		
 		this.insertStageLeaderBoardStmt = session.prepare(INSERT_INTO_STAGE_LEADERBOARD);		
 		this.selectStageLeaderBoardStmt = session.prepare(SELECT_FROM_STAGE_LEADERBOARD);		
+		this.insertStageBucketLeaderBoardStmt = session.prepare(INSERT_INTO_STAGE_BUCKET_LEADERBOARD);		
+		this.selectStageBucketLeaderBoardStmt = session.prepare(SELECT_FROM_STAGE_BUCKET_LEADERBOARD);		
 
-		this.totalReadlStmt = session.prepare(TOTAL_READ);		
+		this.totalReadlStmt = session.prepare(TOTAL_READ);				
 	}
 
 	public void insertScore(Score score) {
 
-		//Now check high score 
-		double previousTotal= getTotalScore(score.getUserId());
-		
-		BoundStatement bound = new BoundStatement(this.insertTotalStmt);
-		session.executeAsync(bound.bind(score.getUserId(), score.getTime(), previousTotal + score.getScore()));	
 		
 		double previousStageScore = getPreviousStageScore(score.getUserId(), score.getStage());
-		
+
+		//Only update if the score is better 
 		if (score.getScore() > previousStageScore){
+			//Now check high score 
+			double previousTotal= getTotalScore(score.getUserId());
+
+			//Take off the lower score and replace with new score and add to total.
+			BoundStatement bound = new BoundStatement(this.insertTotalStmt);
+			session.executeAsync(bound.bind(score.getUserId(), score.getTime(), previousTotal + (score.getScore()-previousStageScore)));	
+			
 			bound = new BoundStatement(this.insertStageLeaderBoardStmt);
 			session.executeAsync(bound.bind(score.getStage(), score.getUserId(), score.getTime(), score.getScore()));
+			
+			bound = new BoundStatement(this.insertStageBucketLeaderBoardStmt);
+			session.executeAsync(bound.bind(score.getStage(), new Integer(score.getUserId()).intValue() % 100, score.getUserId(), score.getTime(), score.getScore()));
 		}
-
 	}
 
 	private double getPreviousStageScore(String userId, String stage) {

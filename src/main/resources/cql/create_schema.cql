@@ -18,7 +18,14 @@ CREATE TABLE if not exists stage_leaderboard (
 	PRIMARY KEY ((stage, user))
 ) WITH compaction= { 'class': 'LeveledCompactionStrategy', 'tombstone_threshold':'0.1'  };
 
+CREATE TABLE if not exists stage_bucket_leaderboard ( 
+	stage text,
+	bucket int,
+	user text,
+	date timestamp,	
+	high_score double,
+	PRIMARY KEY ((stage, bucket), high_score, user)
+) WITH compaction= { 'class': 'LeveledCompactionStrategy', 'tombstone_threshold':'0.1'  };
 
 truncate age_of_darkness_leaderboard;
 truncate stage_leaderboard;
-	

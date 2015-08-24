@@ -90,7 +90,7 @@
   <directoryFactory class="solr.StandardDirectoryFactory" name="DirectoryFactory"/>
 
   <indexConfig>
-    <rt>true</rt>
+    <rt>false</rt>
     <useCompoundFile>false</useCompoundFile>
     <ramBufferSizeMB>512</ramBufferSizeMB>
     <mergeFactor>10</mergeFactor>
@@ -190,7 +190,7 @@
                    triggering a new commit.
       -->
        <autoSoftCommit>
-         <maxTime>60000</maxTime>
+         <maxTime>10000</maxTime>
        </autoSoftCommit>
 
     <!-- Update Related Event Listeners
