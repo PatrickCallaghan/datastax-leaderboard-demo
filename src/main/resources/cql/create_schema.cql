@@ -24,7 +24,7 @@ CREATE TABLE if not exists stage_bucket_leaderboard (
 	user text,
 	date timestamp,	
 	high_score double,
-	PRIMARY KEY ((stage, bucket), high_score, user)
+	PRIMARY KEY ((stage, bucket), user)
 ) WITH compaction= { 'class': 'LeveledCompactionStrategy', 'tombstone_threshold':'0.1'  };
 
 truncate age_of_darkness_leaderboard;
