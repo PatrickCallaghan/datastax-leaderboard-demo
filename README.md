@@ -1,8 +1,6 @@
 Leaderboard Demo
 ====================
 
-This demo shows how to use DataStax Enterprise to get the highest scores on a leaderboard of millions of users. This demo assumes the same user cannot simultaneously play the same game.  This is based on a imaginery game called 'age of darkness'. There is one overall leaderboard and then separate leaderboards for 100,000 thousand stages. This may represent different levels, settings or difficulty settings. The requirement is to provide an overall total leaderboard which just appends points won to an overall score and a stage leaderboard to show the best at each level.
-
 ## Running the demo 
 
 You will need a java runtime along with maven 3 to run this demo. Start DSE version 4.7.1 or greater in SearchAnalytics mode. This can be done using 
@@ -52,5 +50,13 @@ Or to look at the high_scores over all stages, we can use
 
 	select stage,user,high_score from stage_leaderboard where solr_query='{"q": "*:*", "sort":"high_score desc"}' limit 10 ;
 	
+To look up scores below a certain score 
 
-	
+	select user,high_score from stage_leaderboard where solr_query='{"q": "stage:1321", "fq":"high_score:[* TO 92.3]", "sort":"high_score desc"}' limit 5;
+
+and above a certain score
+
+	select user,high_score from stage_leaderboard where solr_query='{"q": "stage:1321", "fq":"high_score:[92.3 TO *]", "sort":"high_score asc"}' limit 5;
+
+
+
